@@ -18,7 +18,7 @@ export default class IpInfo extends Component {
 
     async getInfo() {
         const ip = await this.getIp();
-        const response = await fetch(`http://ipwho.is/${ip}`)
+        const response = await fetch(`http://ipwhois.app/json/${ip}`)
         return await response.json();
 
     }
@@ -26,7 +26,8 @@ export default class IpInfo extends Component {
     componentDidMount() {
         this.getInfo().then(data => {
             this.setState({
-                info: data
+                info: data,
+                isLoading: false
             })
         })
     }
@@ -40,7 +41,7 @@ export default class IpInfo extends Component {
                 {!this.state.isLoading &&
                     <div className="card-container">
                         <span className="info">Info</span>
-                        {/*<img className="round" src="./br.svg" alt="brazil"/>*/}
+                        <img className="round" src={this.state.info.country_flag} alt="brazil"/>
                         <h3>Brazil</h3>
                         <h6>Guarulhos</h6>
                         <p>isp: Akamai International B.V.</p>
