@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import './style.css';
 import {TailSpin} from 'react-loader-spinner'
+import Info from "./Info";
 
 export default class IpInfo extends Component {
     constructor(props) {
@@ -33,24 +34,13 @@ export default class IpInfo extends Component {
     }
 
     render() {
+        const isLoading = this.state.isLoading
         return (
             <>
-                {this.state.isLoading &&
-                    <TailSpin color="#00BFFF" height={80} width={80}/>
-                }
-                {!this.state.isLoading &&
-                    <div className="card-container">
-                        <span className="info">Info</span>
-                        <img className="round" src={this.state.info.country_flag} alt="brazil"/>
-                        <h3>Brazil</h3>
-                        <h6>Guarulhos</h6>
-                        <p>isp: Akamai International B.V.</p>
-                        <div className="footer">
-                            <p>IP: 2.21.90.0</p>
-                            <p>latitude: -23.4543395</p>
-                            <p>longitude: -46.5336678</p>
-                        </div>
-                    </div>
+                {
+                    isLoading ?
+                        <TailSpin color="#00BFFF" height={80} width={80}/> :
+                        <Info data={this.state.info}/>
                 }
             </>
         )
