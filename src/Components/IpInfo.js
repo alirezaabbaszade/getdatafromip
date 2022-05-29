@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import './style.css';
 import {TailSpin} from 'react-loader-spinner'
 import Info from "./Info";
+import getInfo from "../services/getInfo";
 
 export default class IpInfo extends Component {
     constructor(props) {
@@ -12,20 +13,9 @@ export default class IpInfo extends Component {
         }
     }
 
-    async getIp() {
-        const response = await fetch('https://api.ipify.org?format=json')
-        return (await response.json()).ip;
-    }
-
-    async getInfo() {
-        const ip = await this.getIp();
-        const response = await fetch(`http://ipwhois.app/json/${ip}`)
-        return await response.json();
-
-    }
 
     componentDidMount() {
-        this.getInfo().then(data => {
+        getInfo().then(data => {
             this.setState({
                 info: data,
                 isLoading: false
